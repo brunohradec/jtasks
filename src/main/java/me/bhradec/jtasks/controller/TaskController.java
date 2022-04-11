@@ -49,7 +49,7 @@ public class TaskController {
                 .body(taskService.findAllByUserId(userId));
     }
 
-    @GetMapping("{id}")
+    @GetMapping("{taskId}")
     public ResponseEntity<TaskDto> findById(@PathVariable Long taskId) {
         return taskService
                 .findById(taskId)
@@ -62,7 +62,7 @@ public class TaskController {
                 ));
     }
 
-    @PutMapping("{id}")
+    @PutMapping("{taskId}")
     public ResponseEntity<TaskDto> updateById(
             @PathVariable Long taskId,
             @Valid @RequestBody TaskCommandDto taskCommandDto) {
@@ -79,7 +79,7 @@ public class TaskController {
         }
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("{taskId}")
     public ResponseEntity<Void> deleteById(@PathVariable Long taskId) {
         try {
             taskService.deleteById(taskId);

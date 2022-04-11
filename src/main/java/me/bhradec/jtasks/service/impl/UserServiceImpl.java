@@ -65,8 +65,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto updateById(Long userId, UserCommandDto userCommand) throws NotFoundException, ConflictException {
-        User updatedUser = userMapper.mapCommandToUser(userCommand);
+    public UserDto updateById(Long userId, UserCommandDto userCommandDto) throws NotFoundException, ConflictException {
+        User updatedUser = userMapper.mapCommandToUser(userCommandDto);
 
         User user = userRepository
                 .findById(userId)
@@ -75,12 +75,12 @@ public class UserServiceImpl implements UserService {
         updatedUser.setId(user.getId());
 
         if (!user.getUsername().equals(updatedUser.getUsername())
-                && userRepository.findFirstByUsername(user.getUsername()).isPresent()) {
+                && userRepository.findFirstByUsername(updatedUser.getUsername()).isPresent()) {
             throw new ConflictException("User with the provided username already exists.");
         }
 
         if (!user.getEmail().equals(updatedUser.getEmail())
-                && userRepository.findFirstByEmail(user.getEmail()).isPresent()) {
+                && userRepository.findFirstByEmail(updatedUser.getEmail()).isPresent()) {
             throw new ConflictException("User with the provided email already exists.");
         }
 

@@ -55,7 +55,7 @@ public class UserController {
                 .body(userService.findAllByTeamId(teamId));
     }
 
-    @GetMapping("{id}")
+    @GetMapping("{userId}")
     public ResponseEntity<UserDto> findById(@PathVariable Long userId) {
         return userService
                 .findById(userId)
@@ -68,7 +68,7 @@ public class UserController {
                 ));
     }
 
-    @PutMapping("{id}")
+    @PutMapping("{userId}")
     public ResponseEntity<UserDto> updateById(
             @PathVariable Long userId,
             @Valid @RequestBody UserCommandDto userCommandDto) {
@@ -90,7 +90,7 @@ public class UserController {
         }
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("{userId}")
     public ResponseEntity<Void> deleteById(@PathVariable Long userId) {
         try {
             userService.deleteById(userId);

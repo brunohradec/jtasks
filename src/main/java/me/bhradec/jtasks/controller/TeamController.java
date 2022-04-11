@@ -43,7 +43,7 @@ public class TeamController {
                 .body(teamService.findAll());
     }
 
-    @GetMapping("{id}")
+    @GetMapping("{teamId}")
     public ResponseEntity<TeamDto> findById(@PathVariable Long teamId) {
         return teamService
                 .findById(teamId)
@@ -56,7 +56,7 @@ public class TeamController {
                 ));
     }
 
-    @PutMapping("{id}")
+    @PutMapping("{teamId}")
     public ResponseEntity<TeamDto> updateById(
             @PathVariable Long teamId,
             @Valid @RequestBody TeamCommandDto teamCommandDto) {
@@ -78,7 +78,7 @@ public class TeamController {
         }
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("{teamId}")
     public ResponseEntity<Void> deleteById(@PathVariable Long teamId) {
         try {
             teamService.deleteById(teamId);

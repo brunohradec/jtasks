@@ -28,9 +28,9 @@ public class TeamServiceImpl implements TeamService {
     public TeamDto save(TeamCommandDto teamCommandDto) throws ConflictException {
         Team team = teamMapper.mapCommandToTeam(teamCommandDto);
 
-        teamRepository
-                .findFirstByName(teamCommandDto.getName())
-                .orElseThrow(() -> new ConflictException("Team with the provided name already exists."));
+        if (teamRepository.findFirstByName(teamCommandDto.getName()).isPresent()) {
+            throw new ConflictException("Team with the provided name already exists.");
+        }
 
         return teamMapper.mapTeamToDto(teamRepository.save(team));
     }
@@ -62,7 +62,7 @@ public class TeamServiceImpl implements TeamService {
         updatedTeam.setId(team.getId());
 
         if (!team.getName().equals(updatedTeam.getName())
-                && teamRepository.findFirstByName(team.getName()).isPresent()) {
+                && teamRepository.findFirstByName(updatedTeam.getName()).isPresent()) {
             throw new ConflictException("Team with the provided name already exists.");
         }
 
